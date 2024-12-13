@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "gen-types": "supabase gen types typescript --local > db/database.types.ts",
+    "db-sync": "cd ./db && npx @snaplet/seed sync",
+    "db-seed": "npx tsx ./db/seed.ts"
+  },
+  "devDependencies": {
+    "@snaplet/copycat": "^5.1.0",
+    "@snaplet/seed": "^0.98.0",
+    "@supabase/supabase-js": "^2.46.2",
+    "@types/pg": "^8.11.10",
+    "pg": "^8.13.1",
+    "supabase": "^1.226.4",
+    "tsx": "^4.19.2"
+  },
+  "dependencies": {
+    "typescript": "^5.7.2"
+  }
+}
