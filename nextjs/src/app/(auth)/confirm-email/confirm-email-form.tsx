@@ -1,11 +1,12 @@
 'use client'
 
+import { DASHBOARD_URL } from '@/configs';
 import { confirmEmail } from '@/features/auth/actions'
 import { useActionState } from 'react';
 
 export function ConfirmEmailForm({ email }: { email: string }) {
   
-  const [state, action, isPending] = useActionState(confirmEmail, { redirect: '/' })
+  const [state, action, isPending] = useActionState(confirmEmail, { redirect: DASHBOARD_URL })
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-sm">

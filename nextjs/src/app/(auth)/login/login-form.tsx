@@ -1,11 +1,12 @@
 'use client'
 
+import { DASHBOARD_URL } from '@/configs';
 import { login } from '@/features/auth/actions'
 import { useActionState } from 'react';
 
 export function LoginForm() {
   
-  const [state, action, isPending] = useActionState(login, { redirect: "/" })
+  const [state, action, isPending] = useActionState(login, { redirect: DASHBOARD_URL })
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-sm">

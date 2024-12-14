@@ -1,11 +1,12 @@
 'use client'
 
+import { DASHBOARD_URL } from '@/configs';
 import { changePassword } from '@/features/auth/actions'
 import { useActionState } from 'react';
 
 export function ChangePasswordForm() {
   
-  const [state, action, isPending] = useActionState(changePassword, { redirect: "/" })
+  const [state, action, isPending] = useActionState(changePassword, { redirect: DASHBOARD_URL })
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-sm">
