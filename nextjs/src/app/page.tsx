@@ -1,4 +1,4 @@
-import AccountInfoClientSide from './account-client-side'
+import ClientUserInfo from './client-user-info'
 import { createClient } from '@/utils/supabase/server'
 
 export default async function Home() {
@@ -8,12 +8,15 @@ export default async function Home() {
     data: { user },
   } = await supabase.auth.getUser()
 
+  console.log("SERVER", user)
+
   return (
-    <>
-      <h1>Client side</h1>
-      <AccountInfoClientSide />
-      <h1>Client side</h1>
-      <p>{ user?.email }</p>
+    <div>
+      <ClientUserInfo />
+      <div>
+        <h1>Server side</h1>
+        <p>{ user?.email }</p>
+      </div>
       <div>
         <form action="/auth/signout" method="post">
           <button className="button block" type="submit">
@@ -21,6 +24,6 @@ export default async function Home() {
           </button>
         </form>
       </div>
-    </>
+    </div>
   )
 }

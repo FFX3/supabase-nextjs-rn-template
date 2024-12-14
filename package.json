@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "gen-types": "supabase gen types typescript --local > db/database.types.ts",
+    "gen-types": "supabase gen types typescript --local > db/generated-database.types.ts",
     "db-sync": "cd ./db && npx @snaplet/seed sync",
-    "db-seed": "npx tsx ./db/seed.ts"
+    "db-seed": "npx tsx ./db/seed.ts",
+    "gq-schema-build": "get-graphql-schema http://127.0.0.1:54321/graphql/v1 > schema.graphql"
   },
   "devDependencies": {
     "@snaplet/copycat": "^5.1.0",
@@ -10,10 +11,11 @@
     "@supabase/supabase-js": "^2.46.2",
     "@types/pg": "^8.11.10",
     "pg": "^8.13.1",
-    "supabase": "^1.226.4",
-    "tsx": "^4.19.2"
-  },
-  "dependencies": {
+    "supabase": "^2.0.0",
+    "tsx": "^4.19.2",
+    "type-fest": "^4.30.1",
+    "get-graphql-schema": "^2.1.2",
     "typescript": "^5.7.2"
-  }
+  },
+  "dependencies": { }
 }

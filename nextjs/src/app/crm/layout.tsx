@@ -2,7 +2,7 @@
 
 import { Refine } from "@refinedev/core";
 import routerProvider from "@refinedev/nextjs-router";
-import { refineSupabaseClient } from "@/utils/supabase/refine-client";
+import { createClient } from "@/utils/supabase/client";
 import { dataProvider, liveProvider } from "@refinedev/supabase";
 
 export default function RootLayout({
@@ -12,8 +12,8 @@ export default function RootLayout({
 }) {
   return (
     (<Refine
-      dataProvider={dataProvider(refineSupabaseClient)}
-      liveProvider={liveProvider(refineSupabaseClient)}
+      dataProvider={dataProvider(createClient())}
+      liveProvider={liveProvider(createClient())}
       routerProvider={routerProvider}
       resources={[{
         name: "contacts",

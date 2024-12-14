@@ -1,7 +1,18 @@
-drop table if exists data.contacts cascade;
+create schema interface;
+/* https://supabase.com/docs/guides/api/using-custom-schemas */
+GRANT USAGE ON SCHEMA interface TO anon, authenticated, service_role;
+GRANT ALL ON ALL TABLES IN SCHEMA interface TO anon, authenticated, service_role;
+GRANT ALL ON ALL ROUTINES IN SCHEMA interface TO anon, authenticated, service_role;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA interface TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA interface GRANT ALL ON TABLES TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA interface GRANT ALL ON ROUTINES TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA interface GRANT ALL ON SEQUENCES TO anon, authenticated, service_role;
+
+/* contacts */
+drop table if exists public.contacts cascade;
 
 create table
-  data.contacts (
+  public.contacts (
     id serial primary key,
     created_at timestamp with time zone not null default now(),
     user_id uuid references profiles (id) on delete cascade,
@@ -11,9 +22,10 @@ create table
     email text null,
     linkedin text null
   );
+ALTER TABLE public.contacts ENABLE ROW LEVEL SECURITY;
 
 create or replace view
-  public.contacts with(security_invoker) as
+  interface.contacts with(security_invoker=true) as
 select
   contacts.id,
   contacts.first_name,
@@ -22,13 +34,12 @@ select
   contacts.email,
   contacts.linkedin
 from
-  data.contacts;
-
-ALTER TABLE data.contacts ENABLE ROW LEVEL SECURITY;
+  public.contacts;
 
 create policy "Owner can view and edit"
-on data.contacts
-to authenticated
-using (auth.uid() = user_id)
-with check (auth.uid() = user_id);
+on public.contacts
+to public
+using ((select auth.uid()) = user_id)
+with check ((select auth.uid()) = user_id);
+
 
