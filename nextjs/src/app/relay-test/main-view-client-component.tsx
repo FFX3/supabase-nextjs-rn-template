@@ -1,17 +1,15 @@
 "use client";
 
-import MainView from "./ContactsMainView";
 import { useRelayEnvironment } from "react-relay";
-import { SerializablePreloadedQuery } from "@/utils/relay/supabase/loadSerializableQuery";
-import MainViewQueryNode, {
-  MainViewQuery,
-} from "./__generated__/MainViewQuery.graphql";
-import useSerializablePreloadedQuery from "@/utils/relay/supabase/useSerializablePreloadedQuery";
+import { SerializablePreloadedQuery } from "@/utils/relay/loadSerializableQuery";
+import MainViewQueryNode, { mainViewQuery, } from "./__generated__/mainViewQuery.graphql";
+import useSerializablePreloadedQuery from "@/utils/relay/useSerializablePreloadedQuery";
+import MainView from "./main-view";
 
 const MainViewClientComponent = (props: {
   preloadedQuery: SerializablePreloadedQuery<
     typeof MainViewQueryNode,
-    MainViewQuery
+    mainViewQuery
   >;
 }) => {
   const environment = useRelayEnvironment();
@@ -24,3 +22,5 @@ const MainViewClientComponent = (props: {
 };
 
 export default MainViewClientComponent;
+
+

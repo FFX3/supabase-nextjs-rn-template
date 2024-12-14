@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<91a622d0c6e6b8eda62f7015bc8bbdcc>>
+ * @generated SignedSource<<e4dca80a641b75aa904d4ff0a21f7395>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,9 +9,8 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from 'relay-runtime';
-import { FragmentRefs } from "relay-runtime";
-export type ContactsMainViewQuery$variables = Record<PropertyKey, never>;
-export type ContactsMainViewQuery$data = {
+export type mainViewQuery$variables = Record<PropertyKey, never>;
+export type mainViewQuery$data = {
   readonly profilesCollection: {
     readonly edges: ReadonlyArray<{
       readonly node: {
@@ -19,11 +18,10 @@ export type ContactsMainViewQuery$data = {
       };
     }>;
   } | null | undefined;
-  readonly " $fragmentSpreads": FragmentRefs<"ContactsFragment">;
 };
-export type ContactsMainViewQuery = {
-  response: ContactsMainViewQuery$data;
-  variables: ContactsMainViewQuery$variables;
+export type mainViewQuery = {
+  response: mainViewQuery$data;
+  variables: mainViewQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -40,20 +38,13 @@ v1 = {
   "kind": "ScalarField",
   "name": "email",
   "storageKey": null
-},
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "nodeId",
-  "storageKey": null
 };
 return {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "ContactsMainViewQuery",
+    "name": "mainViewQuery",
     "selections": [
       {
         "alias": null,
@@ -88,11 +79,6 @@ return {
           }
         ],
         "storageKey": "profilesCollection(first:1)"
-      },
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "ContactsFragment"
       }
     ],
     "type": "Query",
@@ -102,7 +88,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "ContactsMainViewQuery",
+    "name": "mainViewQuery",
     "selections": [
       {
         "alias": null,
@@ -129,7 +115,13 @@ return {
                 "plural": false,
                 "selections": [
                   (v1/*: any*/),
-                  (v2/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "nodeId",
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": null
               }
@@ -138,76 +130,20 @@ return {
           }
         ],
         "storageKey": "profilesCollection(first:1)"
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "contactsConnection",
-        "kind": "LinkedField",
-        "name": "contactsCollection",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "contactsEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "contacts",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
-                  (v1/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "first_name",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "last_name",
-                    "storageKey": null
-                  },
-                  (v2/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "867741f7a4c3f8b4d5e41afb77700b42",
+    "cacheID": "535f4da4a9f78ea66e46fa5915b074e8",
     "id": null,
     "metadata": {},
-    "name": "ContactsMainViewQuery",
+    "name": "mainViewQuery",
     "operationKind": "query",
-    "text": "query ContactsMainViewQuery {\n  profilesCollection(first: 1) {\n    edges {\n      node {\n        email\n        nodeId\n      }\n    }\n  }\n  ...ContactsFragment\n}\n\nfragment ContactsFragment on Query {\n  contactsCollection {\n    edges {\n      node {\n        id\n        email\n        first_name\n        last_name\n        nodeId\n      }\n    }\n  }\n}\n"
+    "text": "query mainViewQuery {\n  profilesCollection(first: 1) {\n    edges {\n      node {\n        email\n        nodeId\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9c333aae47c056ac073fd91f4abd3f71";
+(node as any).hash = "c5c0c20454430d0929dafc2d63b03412";
 
 export default node;

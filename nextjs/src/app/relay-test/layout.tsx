@@ -1,7 +1,7 @@
 "use client";
 
 import { RelayEnvironmentProvider } from "react-relay";
-import { getCurrentEnvironment } from "@/utils/relay/supabase/environment";
+import { getCurrentEnvironment } from "@/utils/relay/environment";
 
 export default function RootLayout({
   children,
@@ -11,8 +11,8 @@ export default function RootLayout({
   const environment = getCurrentEnvironment();
 
   return (
-      <RelayEnvironmentProvider environment={environment}>
-        {children}
-      </RelayEnvironmentProvider>
+    <RelayEnvironmentProvider environment={environment}>
+      {children}
+    </RelayEnvironmentProvider>
   );
 }

@@ -1,13 +1,13 @@
-import loadSerializableQuery from "@/utils/relay/supabase/loadSerializableQuery";
+import loadSerializableQuery from "@/utils/relay/loadSerializableQuery";
 import MainViewQueryNode, {
-  ContactsMainViewQuery,
-} from "./__generated__/ContactsMainViewQuery.graphql";
-import MainViewClientComponent from "./MainViewClientComponent";
+  mainViewQuery,
+} from "./__generated__/mainViewQuery.graphql";
+import MainViewClientComponent from "./main-view-client-component";
 
 const Page = async () => {
   const preloadedQuery = await loadSerializableQuery<
     typeof MainViewQueryNode,
-    ContactsMainViewQuery
+    mainViewQuery
   >(MainViewQueryNode.params, {});
 
   return <MainViewClientComponent preloadedQuery={preloadedQuery} />;

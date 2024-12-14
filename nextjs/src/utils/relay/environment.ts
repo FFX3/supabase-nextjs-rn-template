@@ -10,34 +10,49 @@ import {
   CacheConfig,
 } from "relay-runtime";
 
-const HTTP_ENDPOINT = "https://api.github.com/graphql";
 const IS_SERVER = typeof window === typeof undefined;
+
 const CACHE_TTL = 5 * 1000; // 5 seconds, to resolve preloaded results
+const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const API_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
 
 export async function networkFetch(
   request: RequestParameters,
   variables: Variables
 ): Promise<GraphQLResponse> {
-  const token = process.env.NEXT_PUBLIC_REACT_APP_GITHUB_AUTH_TOKEN;
-  if (token == null || token === "") {
+
+  if (API_URL == null || API_URL === "") {
     throw new Error(
-      "This app requires a GitHub authentication token to be configured. See readme.md for setup details."
+      "Set the api url"
     );
   }
 
-  const resp = await fetch(HTTP_ENDPOINT, {
+  if (ANON_KEY == null || ANON_KEY === "") {
+    throw new Error(
+      "Set the anon key"
+    );
+  }
+  const supabase = IS_SERVER 
+      ? await require("@/utils/supabase/server").createClient() 
+      : require("@/utils/supabase/client").createClient()
+
+  const { data: { session } } = await supabase.auth.getSession()
+  const token = session?.access_token
+
+  const response = await fetch(`${API_URL}/graphql/v1`, {
     method: "POST",
     headers: {
       Accept: "application/json",
-      Authorization: `bearer ${token}`,
       "Content-Type": "application/json",
+      Authorization: `bearer ${token ?? ANON_KEY}`,
+      apiKey: ANON_KEY
     },
     body: JSON.stringify({
       query: request.text,
       variables,
     }),
   });
-  const json = await resp.json();
+  const json = await response.json();
 
   // GraphQL returns exceptions (for example, a missing required variable) in the "errors"
   // property of the response. If any exceptions occurred when processing the request,
@@ -91,6 +106,18 @@ function createEnvironment() {
     network: createNetwork(),
     store: new Store(RecordSource.create()),
     isServer: IS_SERVER,
+    getDataID: (node) => node.nodeId,
+    missingFieldHandlers: [
+      {
+        handle(field, _record, argValues) {
+          if(field.name === 'node' && 'nodeId' in argValues) {
+            return argValues.nodeId
+          }
+          return undefined
+        },
+        kind: 'linked'
+      }
+    ],
   });
 }
 
