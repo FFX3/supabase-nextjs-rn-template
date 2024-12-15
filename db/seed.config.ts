@@ -20,7 +20,6 @@ export default defineConfig({
     // We want to alter all the tables under public schema
     "interface*",
     "public*",
-    "public.test",
     // We also want to alter some of the tables under the auth schema
     "auth.users",
     "auth.identities",

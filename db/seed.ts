@@ -21,7 +21,7 @@ async function main() {
     // const userName = copycat.username(i);
 
     {
-      const { data: user } = await supabase.from('profiles').select('id').eq('email', email).single()
+      const { data: user } = await supabase.from('users').select('id').eq('email', email).single()
 
       if(user) {
         console.log(`Deleting user "${user.id}" with email "${email}"`)

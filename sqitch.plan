@@ -3,3 +3,6 @@
 %uri=http://localhost:3000/
 
 interface-schema 2024-12-15T15:57:04Z Justin McIntyre <justinmcintyre42@gmail.com> # Add the interface schema
+users 2024-12-15T16:34:24Z Justin McIntyre <justinmcintyre42@gmail.com> # Create the public.user table - a mirror to the auth.users
+organizations [users] 2024-12-15T17:29:04Z Justin McIntyre <justinmcintyre42@gmail.com> # Create the organization table
+contacts [organizations] 2024-12-15T17:33:38Z Justin McIntyre <justinmcintyre42@gmail.com> # Organization contacts
