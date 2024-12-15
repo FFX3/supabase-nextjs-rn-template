@@ -4,5 +4,6 @@ pkgs.mkShell {
         deno
         nodejs
         watchman
+        sqitchPg
     ];
 }

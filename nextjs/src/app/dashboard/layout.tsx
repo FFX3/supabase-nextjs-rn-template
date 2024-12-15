@@ -16,6 +16,10 @@ export default function RootLayout({
 }) {
   const environment = getCurrentEnvironment();
 
+  const resources = [
+    "contacts"
+  ]
+
   return (
     <RelayEnvironmentProvider environment={environment}>
       <RefineKbarProvider>
@@ -23,7 +27,7 @@ export default function RootLayout({
           dataProvider={dataProvider(createClient())}
           liveProvider={liveProvider(createClient())}
           routerProvider={routerProvider}
-          resources={["contacts", "profile"].map(key=>({
+          resources={resources.map(key=>({
             name: key,
             list: `/dashboard/${key}`,
             create: `/dashboard/${key}/new`,
