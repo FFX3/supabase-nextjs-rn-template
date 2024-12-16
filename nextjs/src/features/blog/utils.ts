@@ -1,3 +1,4 @@
+import { BLOG_POST_DIR } from '@/configs'
 import fs from 'fs'
 import path from 'path'
 
@@ -50,7 +51,7 @@ function getMDXData(dir) {
 }
 
 export function getBlogPosts() {
-  return getMDXData(path.join(process.cwd(), 'blog-posts'))
+  return getMDXData(path.join(BLOG_POST_DIR))
 }
 
 export function formatDate(date: string, includeRelative = false) {
