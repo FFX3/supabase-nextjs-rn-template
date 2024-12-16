@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createMDX from '@next/mdx'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -8,7 +9,13 @@ const nextConfig: NextConfig = {
       language: "typescript",
     },
   },
+  transpilePackages: ['next-mdx-remote'],
+  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+    // Add markdown plugins here
+})
+
+export default withMDX(nextConfig);
 
