@@ -1,53 +1,35 @@
 import { createSeedClient } from '@snaplet/seed'
-import { copycat } from '@snaplet/copycat'
-import { createClient } from '@supabase/supabase-js'
-import { firstName } from '@snaplet/copycat/dist/firstName';
 
 async function main() {
 
-  const supabase = createClient(
-    'http://127.0.0.1:54321',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU'
-  );
-  
-  const seed = await createSeedClient()
+  const seed = await createSeedClient({ dryRun: false })
   
   await seed.$resetDatabase()
 
-  const PASSWORD = "bingo";
-  for (let i = 0; i < 5; i++) {
-    const email = `${i}@test`
-    // const fullName = copycat.fullName(i);
-    // const userName = copycat.username(i);
+  // password is "bingo"
+  const PASSWORD_HASH = "$2a$10$asnydYKT4kWhXHomhKgtRe9VA4iiAON4mEUF7ON5tjp7g91ghEJDa"
 
-    {
-      const { data: user } = await supabase.from('users').select('id').eq('email', email).single()
+  const email = `default@test`
 
-      if(user) {
-        console.log(`Deleting user "${user.id}" with email "${email}"`)
-        await supabase.auth.admin.deleteUser(user.id)
-      }
-    }
-    
-    const { data: { user } } = await supabase.auth.admin.createUser({
+  await seed.auth_users((x) => x(1, {
       email,
-      password: PASSWORD,
-      email_confirm: true,
-      user_metadata: { email }
-    });
+      raw_user_meta_data: { seeded: true },
+      encrypted_password: PASSWORD_HASH,
+      is_super_admin: false,
+      banned_until: null,
+      instance_id: '00000000-0000-0000-0000-000000000000',
+      role: 'authenticated',
+      aud: 'authenticated',
+      public_users: [{
+          email,
+          organizations: [{
+              contacts: (x) => x(10, {})
+          }],
+      }]
+  }))
 
-    if(!user) {
-        throw('Failed to create user')
-    }
 
-    console.log(`Created user with email "${user.email}" and id "${user.id}"`)
 
-    await seed.contacts([{
-        id: undefined,
-        user_id: user.id,
-    }])
-
-  }
 
   process.exit()
 }

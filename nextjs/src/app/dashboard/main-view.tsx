@@ -8,7 +8,7 @@ export default function MainView(props: {
   const data = usePreloadedQuery(
     graphql`
     query mainViewQuery {
-      profilesCollection(first:1) {
+      usersCollection(first:1) {
         edges {
           node {
             email
@@ -25,7 +25,7 @@ export default function MainView(props: {
   return (
     <Suspense fallback="Loading (client side)...">
       <h1>
-        {data.profilesCollection?.edges[0]?.node.email}
+        {data.usersCollection?.edges[0]?.node.email}
       </h1>
     </Suspense>
   );

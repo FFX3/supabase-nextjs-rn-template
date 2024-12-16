@@ -18,7 +18,6 @@ export default defineConfig({
     // We don't alter any extensions tables that might be owned by extensions
     "!*",
     // We want to alter all the tables under public schema
-    "interface*",
     "public*",
     // We also want to alter some of the tables under the auth schema
     "auth.users",

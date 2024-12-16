@@ -3,7 +3,7 @@
     "gen-types": "supabase gen types typescript --local > db/generated-database.types.ts",
     "db-sync": "cd ./db && npx @snaplet/seed sync",
     "db-seed": "npx tsx ./db/seed.ts",
-    "gq-schema-build": "get-graphql-schema http://127.0.0.1:54321/graphql/v1 > schema.graphql",
+    "gq-schema-build": "get-graphql-schema http://127.0.0.1:54321/graphql/v1 > schema.graphql"
   },
   "devDependencies": {
     "@snaplet/copycat": "^5.1.0",

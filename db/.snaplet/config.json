@@ -1,4 +1,4 @@
 {
   "adapter": "pg",
-  "projectDescription": "This project is about managing user information and interactions, including contacts, user identities, user profiles, sessions, and user testing."
+  "projectDescription": "This project is about managing contacts, identities, organization members, organizations, sessions, authentication users, and public users."
 }

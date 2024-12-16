@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e4dca80a641b75aa904d4ff0a21f7395>>
+ * @generated SignedSource<<99665d45349960535863073a20688502>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { ConcreteRequest } from 'relay-runtime';
 export type mainViewQuery$variables = Record<PropertyKey, never>;
 export type mainViewQuery$data = {
-  readonly profilesCollection: {
+  readonly usersCollection: {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly email: string | null | undefined;
@@ -49,15 +49,15 @@ return {
       {
         "alias": null,
         "args": (v0/*: any*/),
-        "concreteType": "profilesConnection",
+        "concreteType": "usersConnection",
         "kind": "LinkedField",
-        "name": "profilesCollection",
+        "name": "usersCollection",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "profilesEdge",
+            "concreteType": "usersEdge",
             "kind": "LinkedField",
             "name": "edges",
             "plural": true,
@@ -65,7 +65,7 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "profiles",
+                "concreteType": "users",
                 "kind": "LinkedField",
                 "name": "node",
                 "plural": false,
@@ -78,7 +78,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "profilesCollection(first:1)"
+        "storageKey": "usersCollection(first:1)"
       }
     ],
     "type": "Query",
@@ -93,15 +93,15 @@ return {
       {
         "alias": null,
         "args": (v0/*: any*/),
-        "concreteType": "profilesConnection",
+        "concreteType": "usersConnection",
         "kind": "LinkedField",
-        "name": "profilesCollection",
+        "name": "usersCollection",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "profilesEdge",
+            "concreteType": "usersEdge",
             "kind": "LinkedField",
             "name": "edges",
             "plural": true,
@@ -109,7 +109,7 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "profiles",
+                "concreteType": "users",
                 "kind": "LinkedField",
                 "name": "node",
                 "plural": false,
@@ -129,21 +129,21 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "profilesCollection(first:1)"
+        "storageKey": "usersCollection(first:1)"
       }
     ]
   },
   "params": {
-    "cacheID": "535f4da4a9f78ea66e46fa5915b074e8",
+    "cacheID": "04d581484fdc53ffdb4efa0bf893f21f",
     "id": null,
     "metadata": {},
     "name": "mainViewQuery",
     "operationKind": "query",
-    "text": "query mainViewQuery {\n  profilesCollection(first: 1) {\n    edges {\n      node {\n        email\n        nodeId\n      }\n    }\n  }\n}\n"
+    "text": "query mainViewQuery {\n  usersCollection(first: 1) {\n    edges {\n      node {\n        email\n        nodeId\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c5c0c20454430d0929dafc2d63b03412";
+(node as any).hash = "2fa613e9f474396afa961ae0d0a68fdf";
 
 export default node;

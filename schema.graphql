@@ -76,12 +76,15 @@ input BooleanListFilter {
 type contacts implements Node {
   """Globally Unique Record Identifier"""
   nodeId: ID!
-  id: Int
+  id: UUID!
+  created_at: Datetime!
+  organization_id: UUID!
   first_name: String
   last_name: String
   phone_number: String
   email: String
   linkedin: String
+  organizations: organizations
 }
 
 type contactsConnection {
@@ -103,7 +106,9 @@ type contactsEdge {
 }
 
 input contactsFilter {
-  id: IntFilter
+  id: UUIDFilter
+  created_at: DatetimeFilter
+  organization_id: UUIDFilter
   first_name: StringFilter
   last_name: StringFilter
   phone_number: StringFilter
@@ -126,7 +131,9 @@ input contactsFilter {
 }
 
 input contactsInsertInput {
-  id: Int
+  id: UUID
+  created_at: Datetime
+  organization_id: UUID
   first_name: String
   last_name: String
   phone_number: String
@@ -144,6 +151,8 @@ type contactsInsertResponse {
 
 input contactsOrderBy {
   id: OrderByDirection
+  created_at: OrderByDirection
+  organization_id: OrderByDirection
   first_name: OrderByDirection
   last_name: OrderByDirection
   phone_number: OrderByDirection
@@ -152,7 +161,9 @@ input contactsOrderBy {
 }
 
 input contactsUpdateInput {
-  id: Int
+  id: UUID
+  created_at: Datetime
+  organization_id: UUID
   first_name: String
   last_name: String
   phone_number: String
@@ -307,22 +318,52 @@ type Mutation {
     atMost: Int! = 1
   ): contactsDeleteResponse!
 
-  """Deletes zero or more records from the `profiles` collection"""
-  deleteFromprofilesCollection(
+  """
+  Deletes zero or more records from the `organization_members` collection
+  """
+  deleteFromorganization_membersCollection(
     """Restricts the mutation's impact to records matching the criteria"""
-    filter: profilesFilter
+    filter: organization_membersFilter
 
     """
     The maximum number of records in the collection permitted to be affected
     """
     atMost: Int! = 1
-  ): profilesDeleteResponse!
+  ): organization_membersDeleteResponse!
+
+  """Deletes zero or more records from the `organizations` collection"""
+  deleteFromorganizationsCollection(
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: organizationsFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): organizationsDeleteResponse!
+
+  """Deletes zero or more records from the `users` collection"""
+  deleteFromusersCollection(
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: usersFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): usersDeleteResponse!
 
   """Adds one or more `contacts` records to the collection"""
   insertIntocontactsCollection(objects: [contactsInsertInput!]!): contactsInsertResponse
 
-  """Adds one or more `profiles` records to the collection"""
-  insertIntoprofilesCollection(objects: [profilesInsertInput!]!): profilesInsertResponse
+  """Adds one or more `organization_members` records to the collection"""
+  insertIntoorganization_membersCollection(objects: [organization_membersInsertInput!]!): organization_membersInsertResponse
+
+  """Adds one or more `organizations` records to the collection"""
+  insertIntoorganizationsCollection(objects: [organizationsInsertInput!]!): organizationsInsertResponse
+
+  """Adds one or more `users` records to the collection"""
+  insertIntousersCollection(objects: [usersInsertInput!]!): usersInsertResponse
 
   """Updates zero or more records in the `contacts` collection"""
   updatecontactsCollection(
@@ -340,21 +381,53 @@ type Mutation {
     atMost: Int! = 1
   ): contactsUpdateResponse!
 
-  """Updates zero or more records in the `profiles` collection"""
-  updateprofilesCollection(
+  """Updates zero or more records in the `organization_members` collection"""
+  updateorganization_membersCollection(
     """
     Fields that are set will be updated for all records matching the `filter`
     """
-    set: profilesUpdateInput!
+    set: organization_membersUpdateInput!
 
     """Restricts the mutation's impact to records matching the criteria"""
-    filter: profilesFilter
+    filter: organization_membersFilter
 
     """
     The maximum number of records in the collection permitted to be affected
     """
     atMost: Int! = 1
-  ): profilesUpdateResponse!
+  ): organization_membersUpdateResponse!
+
+  """Updates zero or more records in the `organizations` collection"""
+  updateorganizationsCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: organizationsUpdateInput!
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: organizationsFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): organizationsUpdateResponse!
+
+  """Updates zero or more records in the `users` collection"""
+  updateusersCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: usersUpdateInput!
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: usersFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): usersUpdateResponse!
 }
 
 interface Node {
@@ -388,86 +461,212 @@ enum OrderByDirection {
   DescNullsLast
 }
 
-type PageInfo {
-  endCursor: String
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: String
-}
-
-type profiles implements Node {
+type organization_members implements Node {
   """Globally Unique Record Identifier"""
   nodeId: ID!
-  id: UUID!
-  email: String
+  organization_id: UUID!
+  user_id: UUID!
+  organizations: organizations
+  users: users!
 }
 
-type profilesConnection {
-  edges: [profilesEdge!]!
+type organization_membersConnection {
+  edges: [organization_membersEdge!]!
   pageInfo: PageInfo!
 }
 
-type profilesDeleteResponse {
+type organization_membersDeleteResponse {
   """Count of the records impacted by the mutation"""
   affectedCount: Int!
 
   """Array of records impacted by the mutation"""
-  records: [profiles!]!
+  records: [organization_members!]!
 }
 
-type profilesEdge {
+type organization_membersEdge {
   cursor: String!
-  node: profiles!
+  node: organization_members!
 }
 
-input profilesFilter {
-  id: UUIDFilter
-  email: StringFilter
+input organization_membersFilter {
+  organization_id: UUIDFilter
+  user_id: UUIDFilter
   nodeId: IDFilter
 
   """
   Returns true only if all its inner filters are true, otherwise returns false
   """
-  and: [profilesFilter!]
+  and: [organization_membersFilter!]
 
   """
   Returns true if at least one of its inner filters is true, otherwise returns false
   """
-  or: [profilesFilter!]
+  or: [organization_membersFilter!]
 
   """Negates a filter"""
-  not: profilesFilter
+  not: organization_membersFilter
 }
 
-input profilesInsertInput {
-  id: UUID
-  email: String
+input organization_membersInsertInput {
+  organization_id: UUID
+  user_id: UUID
 }
 
-type profilesInsertResponse {
+type organization_membersInsertResponse {
   """Count of the records impacted by the mutation"""
   affectedCount: Int!
 
   """Array of records impacted by the mutation"""
-  records: [profiles!]!
+  records: [organization_members!]!
 }
 
-input profilesOrderBy {
+input organization_membersOrderBy {
+  organization_id: OrderByDirection
+  user_id: OrderByDirection
+}
+
+input organization_membersUpdateInput {
+  organization_id: UUID
+  user_id: UUID
+}
+
+type organization_membersUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [organization_members!]!
+}
+
+type organizations implements Node {
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  id: UUID!
+  owner_id: UUID!
+  users: users!
+  organization_membersCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: organization_membersFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [organization_membersOrderBy!]
+  ): organization_membersConnection
+  contactsCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: contactsFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [contactsOrderBy!]
+  ): contactsConnection
+}
+
+type organizationsConnection {
+  edges: [organizationsEdge!]!
+  pageInfo: PageInfo!
+}
+
+type organizationsDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [organizations!]!
+}
+
+type organizationsEdge {
+  cursor: String!
+  node: organizations!
+}
+
+input organizationsFilter {
+  id: UUIDFilter
+  owner_id: UUIDFilter
+  nodeId: IDFilter
+
+  """
+  Returns true only if all its inner filters are true, otherwise returns false
+  """
+  and: [organizationsFilter!]
+
+  """
+  Returns true if at least one of its inner filters is true, otherwise returns false
+  """
+  or: [organizationsFilter!]
+
+  """Negates a filter"""
+  not: organizationsFilter
+}
+
+input organizationsInsertInput {
+  id: UUID
+  owner_id: UUID
+}
+
+type organizationsInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [organizations!]!
+}
+
+input organizationsOrderBy {
   id: OrderByDirection
-  email: OrderByDirection
+  owner_id: OrderByDirection
 }
 
-input profilesUpdateInput {
+input organizationsUpdateInput {
   id: UUID
-  email: String
+  owner_id: UUID
 }
 
-type profilesUpdateResponse {
+type organizationsUpdateResponse {
   """Count of the records impacted by the mutation"""
   affectedCount: Int!
 
   """Array of records impacted by the mutation"""
-  records: [profiles!]!
+  records: [organizations!]!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
 }
 
 """The root type for querying data"""
@@ -504,8 +703,8 @@ type Query {
     nodeId: ID!
   ): Node
 
-  """A pagable collection of type `profiles`"""
-  profilesCollection(
+  """A pagable collection of type `organization_members`"""
+  organization_membersCollection(
     """Query the first `n` records in the collection"""
     first: Int
 
@@ -524,11 +723,64 @@ type Query {
     offset: Int
 
     """Filters to apply to the results set when querying from the collection"""
-    filter: profilesFilter
+    filter: organization_membersFilter
 
     """Sort order to apply to the collection"""
-    orderBy: [profilesOrderBy!]
-  ): profilesConnection
+    orderBy: [organization_membersOrderBy!]
+  ): organization_membersConnection
+
+  """A pagable collection of type `organizations`"""
+  organizationsCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: organizationsFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [organizationsOrderBy!]
+  ): organizationsConnection
+  organizations_user_is_member: UUID
+
+  """A pagable collection of type `users`"""
+  usersCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: usersFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [usersOrderBy!]
+  ): usersConnection
 }
 
 """
@@ -587,6 +839,129 @@ input TimeListFilter {
   eq: [Time!]
   is: FilterIs
   overlaps: [Time!]
+}
+
+type users implements Node {
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  id: UUID!
+  email: String
+  organizationsCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: organizationsFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [organizationsOrderBy!]
+  ): organizationsConnection
+  organization_membersCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: organization_membersFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [organization_membersOrderBy!]
+  ): organization_membersConnection
+}
+
+type usersConnection {
+  edges: [usersEdge!]!
+  pageInfo: PageInfo!
+}
+
+type usersDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [users!]!
+}
+
+type usersEdge {
+  cursor: String!
+  node: users!
+}
+
+input usersFilter {
+  id: UUIDFilter
+  email: StringFilter
+  nodeId: IDFilter
+
+  """
+  Returns true only if all its inner filters are true, otherwise returns false
+  """
+  and: [usersFilter!]
+
+  """
+  Returns true if at least one of its inner filters is true, otherwise returns false
+  """
+  or: [usersFilter!]
+
+  """Negates a filter"""
+  not: usersFilter
+}
+
+input usersInsertInput {
+  id: UUID
+  email: String
+}
+
+type usersInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [users!]!
+}
+
+input usersOrderBy {
+  id: OrderByDirection
+  email: OrderByDirection
+}
+
+input usersUpdateInput {
+  id: UUID
+  email: String
+}
+
+type usersUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [users!]!
 }
 
 """A universally unique identifier"""
