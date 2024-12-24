@@ -29,9 +29,10 @@ function Table({ data }) {
 function CustomLink(props) {
   let href = props.href
 
+  // Allows linking in my obsidian vault
   if (href.startsWith('/')) {
     return (
-      <Link href={href} {...props}>
+      <Link {...props} href={href}>
         {props.children}
       </Link>
     )
@@ -40,6 +41,15 @@ function CustomLink(props) {
   if (href.startsWith('#')) {
     return <a {...props} />
   }
+
+  if (require('path').parse(href).ext == '.mdx') {
+    return (
+      <Link {...props} href={href.slice(0, -4)}>
+        {props.children}
+      </Link>
+    )
+  }
+
 
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
