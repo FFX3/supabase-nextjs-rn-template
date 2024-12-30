@@ -68,6 +68,9 @@
     background: no-repeat url(/collaboration.avif);
     background-blend-mode: multiply;
     background-position: bottom;
+    height: 100%;
+    background-size: cover;
+    z-index: -10;
 }
 
 @keyframes animate {
@@ -76,19 +79,6 @@
   }
   100% {
     transform: translate(-25%, -75%) rotate(360deg);
-  }
-}
-
-@media (min-width: 1250px) {
-  @keyframes expand {
-    0% {
-      width: 50vw;
-      height: 50vw;
-    }
-    100% {
-      width: 180vw;
-      height: 180vw;
-    }
   }
 }
 
