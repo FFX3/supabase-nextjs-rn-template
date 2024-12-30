@@ -1,17 +1,17 @@
-import Booking from "./(spa)/book-now/page"
-
 export default function Page() {
     return (
       <main className="bg-violet-100">
         <HeroSection />
         <Aspirations />
         <SocialProof />
-        <CTA />
+        <WhatWeDo />
+        <TopRatedOnUpwork />
+        <CTA3Tier />
       </main>
     )
 }
 
-function CTA() {
+function CTASqueeze() {
     return (<>
         <section className="bg-violet-100 text-neutral-950 p-3 isolate pb-72">
           <div className="m-auto max-w-7xl p-10 text-center">
@@ -27,17 +27,100 @@ function CTA() {
     </>)
 }
 
+function CTA3Tier() {
+    return (
+        <section className="bg-violet-100 text-neutral-950 p-3 isolate pb-72">
+          <div className="m-auto max-w-7xl p-10 text-center">
+            <h3 className="m-10 text-center text-4xl font-semibold tracking-wide">How can we help you?</h3>
+            <div className="w-full grid grid-cols-3 text-left gap-4">
+                <div className="m-auto bg-white p-10 rounded-xl shadow-md h-full flex flex-col gap-6 justify-between">
+                  <div>
+                    <h4 className="text-left text-lg font-semibold tracking-wide">
+                      Project planning consultation
+                    </h4>
+                    <p className="mt-4">
+                      Need help creating a game plan? Is your idea so crazy
+                      you're not sure it's possible? Are you struggling to
+                      estimate costs?
+                    </p>
+                    <p className="mt-4">
+                      We'll go over you project, I'll take notes all your
+                      questions and project requirements. After that meeting
+                      I'll do the necessary research and comeback with a
+                      gameplan tailor made for you.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-center text-4xl font-semibold">
+                      $479
+                    </p>
+                    <a href="/project-planning-and-consultation">
+                      <div className="bg-violet-700 text-white font-semibold p-4 rounded-lg mt-4 text-center" >
+                        Book now
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div className="m-auto bg-white p-10 rounded-xl shadow-md h-full flex flex-col gap-6 justify-between">
+                  <div>
+                    <h4 className="text-left text-lg font-semibold tracking-wide">
+                      Software Development
+                    </h4>
+                    <p className="mt-4">
+                      Are you ready to start building your application? Do you
+                      know exactly what you need?
+                    </p>
+                    <p className="mt-4">
+                      Let's set up some milestones and get building!
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-center text-4xl font-semibold">
+                      Starting at $5000
+                    </p>
+                    <div className="bg-violet-700 text-white font-semibold p-4 rounded-lg mt-4 text-center" >
+                      Start building
+                    </div>
+                  </div>
+                </div>
+                <div className="m-auto bg-white p-10 rounded-xl shadow-md h-full flex flex-col gap-6 justify-between">
+                  <div>
+                    <h4 className="text-left text-lg font-semibold tracking-wide">
+                      Fractional CTO
+                    </h4>
+                    <p className="mt-4">
+                      Do you need a CTO but are not ready to pay their full-time +250k Salary?
+                    </p>
+                    <p className="mt-4">
+                      Are you looking for key players to help manage and scale
+                      your IT infrastructure? 
+                    </p>
+                    <p className="mt-4">
+                      Do you need someone with technical experience on your
+                      team to help make sound business decisions? 
+                    </p>
+                  </div>
+                  <div>
+                    <div className="bg-violet-700 text-white font-semibold p-4 rounded-lg mt-4 text-center" >
+                      Interview
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </section>
+    )
+}
+
+
 function HeroSection() {
     return (
       <section className="isolate z-0 bg-neutral-50 text-neutral-50">
-
         <a href="/blog" className="text-white z-10 float-end p-10 underline underline-offset-2 mix-blend-difference">Blog</a>
         <div className="h-screen w-screen absolute rotate-45 hidden">
           <div className="h-screen w-1/2 right-0 absolute bg-neutral-900" />
         </div>
-
         <div className="liquid overflow-hidden" />
-
         <div className="h-screen flex items-center justify-center">
           <div className="max-w-xl m-3">
             <h1 className="text-6xl md:text-8xl font-semibold mix-blend-difference text-white">Launch&nbsp;Big. Lead&nbsp;Bold.</h1>
@@ -93,27 +176,79 @@ function SocialProof() {
             </div>
           </div>
         </section>
+    </>)
+}
+
+function TopRatedOnUpwork() {
+    return (
         <section>
-          <div className="mt-40">
-            <h3 className="text-7xl font-semibold text-center mb-14"  id="CTA">Top rated on upwork</h3>
+          <div>
+            <h3 className="text-5xl font-semibold text-center mb-14"  id="CTA">Top rated on upwork</h3>
             <div className="p-4">
               <img src="/upwork.png" className="m-auto bg-white p-10 rounded-xl shadow-md" />
             </div>
           </div>
         </section>
-    </>)
+    )
 }
 
 function Aspirations() {
     return (<>
         <section className="bg-violet-100 text-neutral-950 p-3 md:p-10 isolate">
           <div className="m-auto max-w-7xl p-10 text-center">
-              <h3 className="m-10 text-4xl font-semibold tracking-wide">Do you aspire to build a product users love?</h3>
-              <h3 className="m-10 text-4xl font-semibold tracking-wide">Are you driven to make your mark on the world?</h3>
-              <h3 className="m-10 text-4xl font-semibold tracking-wide">Are you ready to take the leap and build?</h3>
-              <p className="mt-20 text-lg max-w-3xl text-left m-auto">
-                You have a bold vision, and you’re not here to play small. Whether it’s disrupting an industry, creating something entirely new, or simply improving lives, your drive to make a difference is what sets you apart
+              <h3 className="m-10 text-left text-4xl font-semibold tracking-wide">Do you aspire to build a product users love?</h3>
+              <h3 className="m-10 text-left text-4xl font-semibold tracking-wide">Are you driven to make your mark on the world?</h3>
+              <h3 className="m-10 text-left text-4xl font-semibold tracking-wide">Are you ready to take the leap and build?</h3>
+              <p className="m-10 text-lg max-w-3xl text-left">
+                You have a bold vision, and you’re not here to play small.
+                Whether it’s disrupting an industry, creating something
+                entirely new, or simply improving lives, your drive to make a
+                difference is what sets you apart
               </p>
+          </div>
+        </section>
+    </>)
+}
+
+function WhatWeDo() {
+    return (<>
+        <section className="bg-violet-100 text-neutral-950 p-3 md:p-10 isolate">
+          <div className="m-auto max-w-7xl p-10 text-center">
+              <h3 className="m-10 text-left text-4xl font-semibold tracking-wide">We Offer Development, Consulting & Fractional CTO services</h3>
+              <p className="m-10 mt-4 text-lg max-w-3xl text-left">
+                Building Software and IT infrastructure is complicated
+                business. It's made even worse when you're trying to do
+                something new. 
+              </p>
+              <p className="m-10 mt-4 text-lg max-w-3xl text-left">
+                When building something new we've found that companies need to
+                fill their team with people who understand their goals
+                throughly. Someone who understands technology at a deep level,
+                but who also understands how to asses how you business can
+                benifit from technology.
+              </p>
+              <h3 className="m-10 text-left text-4xl font-semibold tracking-wide">Our service can take some or all of these forms</h3>
+              <ol className="m-10 mt-4 pl-10 text-md max-w-3xl text-left list-disc">
+                <li>
+                  Managing IT operations in an efficient and secure maner.
+                </li>
+                <li>
+                  Overseeing product development.
+                </li>
+                <li>
+                  Evaluating and implementing new technologies.
+                </li>
+                <li>
+                  Develop and supervise the onboarding and offboarding process.
+                </li>
+                <li>
+                  Discovering reliable and recurring revenu streams by
+                  determining product market fit.
+                </li>
+                <li>
+                  Enabling scaling of operations and future development.
+                </li>
+              </ol>
           </div>
         </section>
     </>)
